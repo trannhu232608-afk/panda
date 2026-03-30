@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Panda Master v2.7 - Full Admin</title>
+    <title>Panda Master v3.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -13,32 +13,32 @@
         .view-section { display: none; }
         .view-section.active { display: block !important; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
-        .panda-card { background: white; border-radius: 2.5rem; border: 1px solid #f1f5f9; box-shadow: 0 15px 35px -5px rgba(0,0,0,0.05); }
+        .panda-card { background: white; border-radius: 2rem; border: 1px solid #f1f5f9; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
         .panda-gradient { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
         button:disabled { opacity: 0.5; pointer-events: none; }
     </style>
 </head>
-<body class="min-h-screen pb-10 text-center">
+<body class="min-h-screen pb-10">
 
     <div id="loader" class="fixed inset-0 bg-white/95 z-50 flex flex-col items-center justify-center hidden">
-        <div class="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
-        <p id="ld-txt" class="text-[10px] font-black text-orange-600 mt-4 uppercase">Đang tải dữ liệu...</p>
+        <div class="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-[10px] font-black text-orange-600 mt-4 uppercase">Đang bảo mật Panda...</p>
     </div>
 
-    <header class="bg-white border-b p-5 flex justify-between items-center sticky top-0 z-40 shadow-sm">
+    <header class="bg-white border-b p-5 flex justify-between items-center sticky top-0 z-40">
         <div onclick="location.reload()" style="cursor:pointer">
-            <h1 class="font-black text-xl uppercase tracking-tighter">PANDA NỘI BỘ</h1>
-            <span class="text-[9px] font-bold text-slate-400 block -mt-1 uppercase italic tracking-widest">v2.7 Master</span>
+            <h1 class="font-black text-xl tracking-tighter uppercase leading-none">PANDA NỘI BỘ</h1>
+            <span class="text-[9px] font-bold text-slate-400 block -mt-1 uppercase italic tracking-widest text-orange-500 text-left">v3.0 Master</span>
         </div>
-        <button id="nav-btn" onclick="toggleAdmin()" class="text-[10px] font-black bg-slate-100 px-5 py-2 rounded-full border border-slate-200 uppercase tracking-tighter shadow-sm active:bg-slate-200">Quản Trị</button>
+        <button id="nav-btn" onclick="toggleAdmin()" class="text-[10px] font-black bg-slate-100 px-5 py-2 rounded-full border border-slate-200 uppercase">Quản Trị</button>
     </header>
 
-    <main class="max-w-2xl mx-auto p-6">
+    <main class="max-w-2xl mx-auto p-6 text-center">
         <div id="view-search" class="view-section active">
             <h2 class="text-5xl font-black my-16 uppercase italic tracking-tighter text-slate-900">Chào Panda!</h2>
             <form onsubmit="searchStaff(event)" class="space-y-4">
-                <input type="tel" id="search-phone" placeholder="Nhập SĐT..." class="w-full p-6 rounded-[2.5rem] border-2 text-center text-3xl font-black focus:border-orange-500 outline-none shadow-xl transition-all">
-                <button type="submit" class="w-full panda-gradient text-white py-6 rounded-[2.5rem] font-black text-xl shadow-lg active:scale-95 transition-all">TIẾP TỤC</button>
+                <input type="tel" id="search-phone" placeholder="Nhập SĐT..." class="w-full p-6 rounded-[2rem] border-2 text-center text-3xl font-black focus:border-orange-500 outline-none shadow-xl transition-all">
+                <button type="submit" class="w-full panda-gradient text-white py-6 rounded-[2rem] font-black text-xl shadow-lg">TIẾP TỤC</button>
             </form>
         </div>
 
@@ -46,10 +46,10 @@
             <div class="panda-card p-10 relative overflow-hidden border-2">
                 <h2 id="display-name" class="text-3xl font-black uppercase mb-1 text-slate-800"></h2>
                 <p id="display-phone" class="text-orange-500 font-black mb-10 text-xl"></p>
-                <div id="used-alert" class="hidden p-8 bg-red-50 text-red-600 rounded-[2.5rem] border-2 border-red-100 mb-4 font-black text-sm uppercase italic">Số này đã dùng rồi!</div>
+                <div id="used-alert" class="hidden p-8 bg-red-50 text-red-600 rounded-[2rem] border-2 border-red-100 mb-4 font-black text-sm uppercase italic">Số này đã dùng rồi!</div>
                 <div id="action-steps">
                     <div id="step-activate">
-                        <label class="block text-left text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 italic">B1: Kích hoạt voucher</label>
+                        <label class="block text-left text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 italic text-center">B1: Kích hoạt voucher</label>
                         <div class="grid grid-cols-1 gap-4">
                             <button onclick="triggerR('Voucher 40%', this)" class="p-6 bg-orange-50 text-orange-600 rounded-3xl font-black border-2 border-orange-100 text-sm uppercase active:scale-95">40% NV</button>
                             <button onclick="triggerR('Voucher 15% món', this)" class="p-6 bg-blue-50 text-blue-600 rounded-3xl font-black border-2 border-blue-100 text-sm uppercase active:scale-95">15% GĐ</button>
@@ -58,33 +58,32 @@
                     <div id="step-bill" class="hidden mt-8 border-t pt-8">
                         <p class="text-green-600 font-black text-sm mb-6 uppercase italic">✅ Thành công! Chụp bill ngay:</p>
                         <input type="file" id="bill-in" accept="image/*" capture="camera" class="hidden" onchange="upB(event)">
-                        <button onclick="document.getElementById('bill-in').click()" class="w-full py-12 border-4 border-dashed border-orange-200 rounded-[3rem] text-orange-400 font-black flex flex-col items-center gap-3 active:bg-orange-50 transition-all"><i class="fa-solid fa-camera text-5xl"></i><span class="tracking-widest uppercase text-xs">Chụp ảnh bill</span></button>
+                        <button onclick="document.getElementById('bill-in').click()" class="w-full py-12 border-4 border-dashed border-orange-200 rounded-[3rem] text-orange-400 font-black flex flex-col items-center gap-3"><i class="fa-solid fa-camera text-5xl"></i><span class="tracking-widest uppercase text-[10px]">Bấm chụp ảnh bill hóa đơn</span></button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="view-admin" class="view-section space-y-8">
-            <div class="grid grid-cols-2 gap-6">
-                <div class="panda-card p-8 text-center"><p class="text-[10px] font-black text-slate-400 uppercase mb-1">Nhân sự</p><p id="st-tot" class="text-5xl font-black text-slate-900 leading-none">0</p></div>
-                <div class="panda-card p-8 text-center"><p class="text-[10px] font-black text-slate-400 uppercase mb-1">Đã dùng</p><p id="st-act" class="text-5xl font-black text-orange-500 leading-none">0</p></div>
+        <div id="view-admin" class="view-section space-y-6">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="panda-card p-6 text-center"><p class="text-[9px] font-black text-slate-400 uppercase mb-1 italic">Tổng NS</p><p id="st-tot" class="text-4xl font-black text-slate-900 leading-none">0</p></div>
+                <div class="panda-card p-6 text-center"><p class="text-[9px] font-black text-slate-400 uppercase mb-1 italic">Đã dùng hôm nay</p><p id="st-act" class="text-4xl font-black text-orange-500 leading-none">0</p></div>
             </div>
-            <div class="panda-card p-8 h-80 relative overflow-hidden"><h3 class="font-black text-xs uppercase tracking-widest mb-6 flex items-center gap-2 italic text-left"><i class="fa-solid fa-chart-line text-orange-500"></i> Xu hướng 7 ngày</h3><div class="h-56 w-full"><canvas id="chart"></canvas></div></div>
-            <div class="panda-card overflow-hidden">
-                <div class="p-6 bg-slate-50 border-b flex justify-between items-center">
-                    <h3 class="font-black text-[10px] uppercase text-slate-400 italic">Lịch sử dùng</h3>
+            <div class="panda-card p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-black text-[10px] uppercase text-slate-400 italic text-left">Lịch sử kích hoạt</h3>
                     <button onclick="loadData()" class="text-orange-500 font-black text-[10px] uppercase bg-orange-50 px-4 py-2 rounded-full border border-orange-100 active:scale-95 transition-all"><i class="fa-solid fa-rotate mr-1"></i> Làm mới</button>
                 </div>
                 <div id="hist-list" class="max-h-96 overflow-y-auto divide-y divide-slate-50 text-left"></div>
             </div>
         </div>
 
-        <div id="view-login" class="view-section py-20 text-center"><div class="panda-card p-10 max-w-sm mx-auto shadow-2xl border-2"><h2 class="text-xl font-black mb-8 uppercase tracking-widest">Admin Login</h2><input type="password" id="pass" placeholder="Mật khẩu..." class="w-full p-5 border-2 rounded-2xl text-center font-black mb-4 outline-none focus:border-orange-500 shadow-inner"><button onclick="login()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase shadow-lg">Đăng nhập</button></div></div>
+        <div id="view-login" class="view-section py-20 text-center"><div class="panda-card p-10 max-w-sm mx-auto border-2 shadow-2xl"><h2 class="text-xl font-black mb-8 uppercase tracking-widest text-slate-800">Admin Login</h2><input type="password" id="pass" placeholder="Mật khẩu..." class="w-full p-5 border-2 rounded-2xl text-center font-black mb-4 outline-none focus:border-orange-500 shadow-inner"><button onclick="login()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase">Đăng nhập</button></div></div>
     </main>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJoIBFS5ZieHLCL4fO_9RP40jrIVGI0PSwQp9gjEYj5-AYxUWUxjkJ9gt5IUTwKRQHsA/exec";
-        let emps = [], used = [], hist = [], cur = null, chartObj = null;
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYTe_nlD3XhZhaTvqAUG5rCBTMlOIdTAIqlBZ4eKQp-6P8-V8zA-5xa7aG-kzB34INSw/exec";
+        let emps = [], used = [], hist = [], cur = null;
 
         async function loadData() {
             document.getElementById('loader').classList.remove('hidden');
@@ -94,9 +93,9 @@
                 emps = d.employees; used = d.usedToday || []; hist = d.history || [];
                 document.getElementById('st-tot').innerText = emps.length;
                 document.getElementById('st-act').innerText = d.activatedCount;
-                if(document.getElementById('view-admin').classList.contains('active')) { renderH(); updateC(); }
+                if(document.getElementById('view-admin').classList.contains('active')) { renderH(); }
                 document.getElementById('loader').classList.add('hidden');
-            } catch (e) { alert("Lỗi kết nối!"); document.getElementById('loader').classList.add('hidden'); }
+            } catch (e) { alert("Lỗi mạng!"); document.getElementById('loader').classList.add('hidden'); }
         }
 
         window.searchStaff = (e) => {
@@ -116,14 +115,14 @@
         };
 
         window.triggerR = async (t, btn) => {
-            if(!confirm("Kích hoạt voucher?")) return;
+            if(!confirm("Kích hoạt voucher này?")) return;
             btn.disabled = true;
             document.getElementById('loader').classList.remove('hidden');
             try {
-                const r = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ name: cur.name, phone: cur.phone, type: t, dept: cur.dept }) });
-                const res = await r.text();
-                if(res.trim() === "Used") {
-                    alert("CẢNH BÁO: Số này vừa được kích hoạt xong!");
+                const response = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ name: cur.name, phone: cur.phone, type: t, dept: cur.dept }) });
+                const result = await response.text();
+                if (result.trim() === "Used") {
+                    alert("CẢNH BÁO: Số này VỪA MỚI kích hoạt xong! Hãy làm mới danh sách.");
                     location.reload();
                 } else {
                     document.getElementById('loader').classList.add('hidden');
@@ -136,24 +135,16 @@
         window.upB = (event) => {
             const reader = new FileReader();
             reader.onload = async (e) => {
-                document.getElementById('ld-txt').innerText = "ĐANG LƯU BILL...";
                 document.getElementById('loader').classList.remove('hidden');
                 await fetch(SCRIPT_URL, { method:'POST', body:JSON.stringify({action:"upload_bill", bill:e.target.result}) });
                 alert("Xong! Panda đã lưu lịch sử."); location.reload();
             }; reader.readAsDataURL(event.target.files[0]);
         };
 
-        window.login = () => { if(document.getElementById('pass').value === 'Nn@0410') { goToView('view-admin'); renderH(); updateC(); } else alert("Sai mật khẩu!"); };
+        window.login = () => { if(document.getElementById('pass').value === 'Nn@0410') { goToView('view-admin'); renderH(); } else alert("Sai mật khẩu!"); };
         window.toggleAdmin = () => { const act = document.querySelector('.view-section.active').id; if(act.startsWith('view-admin')) goToView('view-search'); else goToView('view-login'); };
         function goToView(id) { document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-        function renderH() { document.getElementById('hist-list').innerHTML = hist.map(h => `<div class="p-6 flex justify-between items-center text-[11px] hover:bg-slate-50 transition-colors"><div><p class="font-black uppercase text-slate-800 tracking-tighter">${h.name}</p><p class="text-slate-400 font-bold">${h.dept}</p></div><div class="text-right text-orange-500 font-black italic">${h.type}<p class="text-slate-300 text-[9px] not-italic font-medium">${h.time}</p></div></div>`).join(''); }
-        function updateC() {
-            const ctx = document.getElementById('chart').getContext('2d');
-            const dates = [...Array(7)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() - i); return d.toLocaleDateString('vi-VN', {day:'2-digit', month:'2-digit'}); }).reverse();
-            const counts = dates.map(d => hist.filter(h => h.time.includes(d)).length);
-            if(chartObj) chartObj.destroy();
-            chartObj = new Chart(ctx, { type:'line', data:{ labels:dates, datasets:[{ data:counts, borderColor:'#f97316', backgroundColor:'rgba(249, 115, 22, 0.1)', fill:true, tension:0.4, borderWidth:4, pointRadius:5 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, grid:{ display:false }, ticks:{ stepSize:1 } }, x:{ grid:{ display:false } } } } });
-        }
+        function renderH() { document.getElementById('hist-list').innerHTML = hist.map(h => `<div class="p-4 flex justify-between items-center text-[11px] hover:bg-slate-50 transition-colors"><div><p class="font-black uppercase text-slate-800 tracking-tighter">${h.name}</p><p class="text-slate-400 font-bold">${h.dept}</p></div><div class="text-right text-orange-500 font-black italic">${h.type}<p class="text-slate-300 text-[9px] not-italic font-medium">${h.time}</p></div></div>`).join(''); }
         window.onload = loadData;
     </script>
 </body>
