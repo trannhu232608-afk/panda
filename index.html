@@ -3,84 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Panda Master v3.5</title>
+    <title>Panda Master v8.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
         .view-section { display: none; }
         .view-section.active { display: block !important; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
-        .panda-card { background: white; border-radius: 2rem; border: 1px solid #f1f5f9; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
-        .panda-gradient { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
-        button:disabled { opacity: 0.5; pointer-events: none; }
+        .panda-card { background: white; border-radius: 2rem; border: 1px solid #e2e8f0; }
+        .branch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .branch-btn { border: 1px solid #e2e8f0; padding: 10px; border-radius: 1rem; font-weight: 700; font-size: 10px; text-align: left; background: #fff; }
+        .branch-btn:active { background: #fff7ed; border-color: #f97316; color: #f97316; }
+        .group-label { font-size: 9px; font-weight: 900; color: #94a3b8; text-transform: uppercase; margin: 12px 0 4px; text-align: left; }
     </style>
 </head>
-<body class="min-h-screen pb-10">
+<body class="min-h-screen pb-10 text-center">
     <div id="loader" class="fixed inset-0 bg-white/95 z-50 flex flex-col items-center justify-center hidden">
         <div class="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
-        <p class="text-[10px] font-black text-orange-600 mt-4 uppercase text-center">Đang đồng bộ...</p>
     </div>
 
-    <header class="bg-white border-b p-5 flex justify-between items-center sticky top-0 z-40">
-        <div onclick="location.reload()" style="cursor:pointer">
-            <h1 class="font-black text-xl uppercase tracking-tighter">PANDA NỘI BỘ</h1>
-            <span class="text-[9px] font-bold text-orange-500 block -mt-1 uppercase italic tracking-widest">v3.5 Master</span>
-        </div>
-        <button onclick="toggleAdmin()" class="text-[10px] font-black bg-slate-100 px-5 py-2 rounded-full border">Quản Trị</button>
+    <header class="bg-white border-b p-4 sticky top-0 z-40 flex justify-between items-center shadow-sm">
+        <h1 class="font-black text-lg uppercase tracking-tighter" onclick="location.reload()">PANDA NỘI BỘ</h1>
+        <button onclick="toggleAdmin()" class="text-[9px] font-black bg-slate-100 px-3 py-2 rounded-full border">QUẢN TRỊ</button>
     </header>
 
-    <main class="max-w-2xl mx-auto p-6 text-center">
+    <main class="max-w-2xl mx-auto p-4">
         <div id="view-search" class="view-section active">
-            <h2 class="text-5xl font-black my-16 uppercase italic text-slate-900">Chào Panda!</h2>
+            <h2 class="text-4xl font-black my-12 uppercase italic text-slate-800 tracking-tighter">PANDA MASTER</h2>
             <form onsubmit="searchStaff(event)" class="space-y-4">
-                <input type="tel" id="search-phone" placeholder="Nhập SĐT..." class="w-full p-6 rounded-[2rem] border-2 text-center text-3xl font-black focus:border-orange-500 outline-none shadow-xl transition-all">
-                <button type="submit" class="w-full panda-gradient text-white py-6 rounded-[2rem] font-black text-xl shadow-lg">TIẾP TỤC</button>
+                <input type="tel" id="search-phone" placeholder="Nhập SĐT..." class="w-full p-6 rounded-[2rem] border-2 text-center text-3xl font-black outline-none focus:border-orange-500 shadow-xl transition-all">
+                <button type="submit" class="w-full bg-orange-500 text-white py-6 rounded-[2rem] font-black text-xl shadow-lg">TIẾP TỤC</button>
             </form>
         </div>
 
         <div id="view-details" class="view-section">
-            <div class="panda-card p-10 relative overflow-hidden border-2">
-                <h2 id="display-name" class="text-3xl font-black uppercase mb-1"></h2>
-                <p id="display-phone" class="text-orange-500 font-black mb-10 text-xl"></p>
-                <div id="used-alert" class="hidden p-8 bg-red-50 text-red-600 rounded-[2rem] border-2 border-red-100 mb-4 font-black text-sm uppercase italic">Số này đã kích hoạt rồi!</div>
-                <div id="action-steps">
-                    <div id="step-activate">
-                        <div class="grid grid-cols-1 gap-4">
-                            <button onclick="triggerR('Voucher 40%', this)" class="p-6 bg-orange-50 text-orange-600 rounded-3xl font-black border-2 border-orange-100 text-sm uppercase">Kích hoạt 40%</button>
-                            <button onclick="triggerR('Voucher 15% món', this)" class="p-6 bg-blue-50 text-blue-600 rounded-3xl font-black border-2 border-blue-100 text-sm uppercase">Kích hoạt 15% Món</button>
-                        </div>
+            <div class="panda-card p-6 border-2">
+                <h2 id="display-name" class="text-2xl font-black uppercase mb-1"></h2>
+                <p id="display-phone" class="text-orange-500 font-black mb-6 text-lg"></p>
+                <div id="used-alert" class="hidden p-8 bg-red-50 text-red-600 rounded-3xl border-2 border-red-100 mb-4 font-black text-xs uppercase italic">Hôm nay đã dùng rồi!</div>
+
+                <div id="area-voucher">
+                    <p class="text-[9px] font-black text-slate-400 uppercase mb-3 text-left">BƯỚC 1: CHỌN VOUCHER</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="setVoucher('Voucher 40%')" class="p-4 bg-orange-50 text-orange-600 rounded-2xl font-black border-2 border-orange-100 text-[11px] uppercase">40% Nhân sự</button>
+                        <button onclick="setVoucher('Voucher 15% món')" class="p-4 bg-blue-50 text-blue-600 rounded-2xl font-black border-2 border-blue-100 text-[11px] uppercase">15% Gia đình</button>
                     </div>
-                    <div id="step-bill" class="hidden mt-8 border-t pt-8">
-                        <p class="text-green-600 font-black text-sm mb-6 uppercase italic text-center">✅ Thành công! Chụp bill ngay:</p>
-                        <input type="file" id="bill-in" accept="image/*" capture="camera" class="hidden" onchange="upB(event)">
-                        <button onclick="document.getElementById('bill-in').click()" class="w-full py-12 border-4 border-dashed border-orange-200 rounded-[3rem] text-orange-400 font-black flex flex-col items-center gap-3"><i class="fa-solid fa-camera text-5xl"></i><span class="tracking-widest uppercase text-[10px]">Chụp ảnh bill</span></button>
+                </div>
+
+                <div id="area-branch" class="hidden">
+                    <p class="text-[9px] font-black text-orange-600 uppercase mb-2 text-left tracking-widest text-center italic">BƯỚC 2: CHỌN CHI NHÁNH ĐANG ĂN</p>
+                    <div class="group-label">TP. Hồ Chí Minh</div>
+                    <div class="branch-grid">
+                        <button onclick="triggerFinal('PVD 600')" class="branch-btn">PVD 600 Thủ Đức</button>
+                        <button onclick="triggerFinal('PVH 56')" class="branch-btn">PVH 56 Q.12</button>
+                        <button onclick="triggerFinal('ĐN Q.10')" class="branch-btn">Đồng Nai Q.10</button>
+                        <button onclick="triggerFinal('PVD 151')" class="branch-btn">PVD 151 Gò Vấp</button>
+                        <button onclick="triggerFinal('Lê Trọng Tấn')" class="branch-btn">Lê Trọng Tấn</button>
+                        <button onclick="triggerFinal('Đường số 7')" class="branch-btn">Đường số 7 Bình Tân</button>
+                        <button onclick="triggerFinal('Nguyễn Thị Thập')" class="branch-btn">Nguyễn Thị Thập Q.7</button>
+                        <button onclick="triggerFinal('Nguyễn Hữu Thọ')" class="branch-btn">Nguyễn Hữu Thọ Q.7</button>
+                        <button onclick="triggerFinal('Hoà Bình')" class="branch-btn">Hoà Bình Tân Phú</button>
+                        <button onclick="triggerFinal('Bản Lẩu Q.10')" class="branch-btn">Bản Lẩu Q.10</button>
+                        <button onclick="triggerFinal('Juju Bình Thạnh')" class="branch-btn">Juju Bình Thạnh</button>
+                        <button onclick="triggerFinal('Juju Gò Vấp')" class="branch-btn">Juju Gò Vấp</button>
+                        <button onclick="triggerFinal('Juju Bình Tân')" class="branch-btn">Juju Bình Tân</button>
                     </div>
+                    <div class="group-label">Đà Lạt & Tỉnh khác</div>
+                    <div class="branch-grid">
+                        <button onclick="triggerFinal('07 Hoàng Diệu')" class="branch-btn">07 Hoàng Diệu DL</button>
+                        <button onclick="triggerFinal('32 Trần Phú')" class="branch-btn">32 Trần Phú DL</button>
+                        <button onclick="triggerFinal('Gà Đà Lạt')" class="branch-btn">Gà Đà Lạt</button>
+                        <button onclick="triggerFinal('Trạm Đà Lạt')" class="branch-btn">Trạm Đà Lạt</button>
+                        <button onclick="triggerFinal('Vũng Tàu')" class="branch-btn">Vũng Tàu (Mr. Két)</button>
+                    </div>
+                </div>
+
+                <div id="area-bill" class="hidden pt-6 border-t mt-6">
+                    <p class="text-green-600 font-black text-xs mb-4 uppercase italic">THÀNH CÔNG! CHỤP HÓA ĐƠN:</p>
+                    <input type="file" id="bill-in" accept="image/*" capture="camera" class="hidden" onchange="upB(event)">
+                    <button onclick="document.getElementById('bill-in').click()" class="w-full py-8 border-4 border-dashed border-orange-200 rounded-3xl text-orange-400 font-black flex flex-col items-center gap-2 active:bg-orange-50 transition-all"><i class="fa-solid fa-camera text-3xl"></i><span class="text-[9px] uppercase">Bấm để chụp ảnh</span></button>
                 </div>
             </div>
         </div>
 
-        <div id="view-admin" class="view-section space-y-6">
+        <div id="view-admin" class="view-section space-y-4">
             <div class="grid grid-cols-2 gap-4">
-                <div class="panda-card p-6 text-center"><p class="text-[9px] font-black text-slate-400 uppercase mb-1 italic text-slate-500 text-center">Nhân sự</p><p id="st-tot" class="text-4xl font-black text-slate-900 leading-none">0</p></div>
-                <div class="panda-card p-6 text-center"><p class="text-[9px] font-black text-slate-400 uppercase mb-1 italic text-slate-500 text-center">Đã dùng hôm nay</p><p id="st-act" class="text-4xl font-black text-orange-500 leading-none">0</p></div>
+                <div class="panda-card p-4 text-center"><p class="text-[8px] font-black text-slate-400 uppercase mb-1">Nhân sự</p><p id="st-tot" class="text-2xl font-black">0</p></div>
+                <div class="panda-card p-4 text-center"><p class="text-[8px] font-black text-orange-500 uppercase mb-1">Đã dùng</p><p id="st-act" class="text-2xl font-black text-orange-500">0</p></div>
             </div>
-            <div class="panda-card p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-black text-[10px] uppercase text-slate-400 italic">Lịch sử dùng</h3>
-                    <button onclick="loadData()" class="text-orange-500 font-black text-[10px] uppercase bg-orange-50 px-4 py-2 rounded-full border border-orange-100"><i class="fa-solid fa-rotate mr-1"></i> Làm mới</button>
-                </div>
-                <div id="hist-list" class="max-h-96 overflow-y-auto divide-y divide-slate-50 text-left"></div>
-            </div>
+            <div id="hist-list" class="panda-card overflow-hidden divide-y text-left"></div>
         </div>
 
-        <div id="view-login" class="view-section py-20"><div class="panda-card p-10 max-w-sm mx-auto border-2 shadow-2xl"><h2 class="text-xl font-black mb-8 uppercase tracking-widest text-slate-800">Admin Login</h2><input type="password" id="pass" placeholder="Mật khẩu..." class="w-full p-5 border-2 rounded-2xl text-center font-black mb-4 outline-none focus:border-orange-500"><button onclick="login()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase">Đăng nhập</button></div></div>
+        <div id="view-login" class="view-section py-10"><div class="panda-card p-8 max-w-sm mx-auto border-2 shadow-2xl"><h2 class="text-lg font-black mb-6 uppercase tracking-widest text-slate-800">Admin</h2><input type="password" id="pass" placeholder="Mật khẩu..." class="w-full p-4 border-2 rounded-xl text-center font-black mb-4 outline-none focus:border-orange-500 shadow-inner"><button onclick="login()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase text-sm">Đăng nhập</button></div></div>
     </main>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxg31eMO6cYU1H5VTICeUa_nGmmoK6XPzOr5uCpTNRwvNSLE7YgLcxSDJg8vrjjCmovJQ/exec";
-        let emps = [], used = [], hist = [], cur = null;
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhSp-2en5XxQhrNxgUbfzdNrLhUncseEAoFG_cw6Czpk_ETfA1yoWfpd9tYMCz3YpS0A/exec";
+        let emps = [], used = [], hist = [], cur = null, selectedV = "";
 
         async function loadData() {
             document.getElementById('loader').classList.remove('hidden');
@@ -90,9 +111,8 @@
                 emps = d.employees; used = d.usedToday || []; hist = d.history || [];
                 document.getElementById('st-tot').innerText = emps.length;
                 document.getElementById('st-act').innerText = d.activatedCount;
-                if(document.getElementById('view-admin').classList.contains('active')) { renderH(); }
                 document.getElementById('loader').classList.add('hidden');
-            } catch (e) { alert("Lỗi tải dữ liệu!"); document.getElementById('loader').classList.add('hidden'); }
+            } catch (e) { location.reload(); }
         }
 
         window.searchStaff = (e) => {
@@ -104,27 +124,29 @@
                 document.getElementById('display-name').innerText = cur.name;
                 document.getElementById('display-phone').innerText = cur.phone;
                 const isU = used.includes(p);
-                document.getElementById('step-activate').classList.toggle('hidden', isU);
+                document.getElementById('area-voucher').classList.toggle('hidden', isU);
                 document.getElementById('used-alert').classList.toggle('hidden', !isU);
-                document.getElementById('step-bill').classList.add('hidden');
+                document.getElementById('area-branch').classList.add('hidden');
+                document.getElementById('area-bill').classList.add('hidden');
                 goToView('view-details');
             } else alert("SĐT không có trong danh sách!");
         };
 
-        window.triggerR = async (t, btn) => {
-            if(!confirm("Kích hoạt voucher này?")) return;
-            btn.disabled = true;
+        window.setVoucher = (v) => { selectedV = v; document.getElementById('area-voucher').classList.add('hidden'); document.getElementById('area-branch').classList.remove('hidden'); };
+
+        window.triggerFinal = async (branchName) => {
             document.getElementById('loader').classList.remove('hidden');
             try {
-                const response = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ name: cur.name, phone: cur.phone, type: t, dept: cur.dept }) });
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ name: cur.name, phone: cur.phone, type: selectedV, dept: cur.dept, branch: branchName })
+                });
                 const result = await response.text();
-                if (result.trim() === "Used") {
-                    alert("CẢNH BÁO: Số này VỪA MỚI kích hoạt xong! Vui lòng bấm Làm mới.");
-                    location.reload();
-                } else {
+                if (result.trim() === "Used") { alert("Số này đã kích hoạt xong!"); location.reload(); }
+                else {
                     document.getElementById('loader').classList.add('hidden');
-                    document.getElementById('step-activate').classList.add('hidden');
-                    document.getElementById('step-bill').classList.remove('hidden');
+                    document.getElementById('area-branch').classList.add('hidden');
+                    document.getElementById('area-bill').classList.remove('hidden');
                 }
             } catch (e) { alert("Lỗi mạng!"); location.reload(); }
         };
@@ -134,28 +156,27 @@
             reader.onload = async (e) => {
                 document.getElementById('loader').classList.remove('hidden');
                 await fetch(SCRIPT_URL, { method:'POST', body:JSON.stringify({action:"upload_bill", bill:e.target.result}) });
-                alert("Xong! Panda đã ghi nhận."); location.reload();
+                alert("Xong! Panda đã lưu lịch sử."); location.reload();
             }; reader.readAsDataURL(event.target.files[0]);
         };
 
-        window.login = () => { if(document.getElementById('pass').value === 'Nn@0410') { goToView('view-admin'); renderH(); } else alert("Sai mật khẩu!"); };
+        window.login = () => { if(document.getElementById('pass').value === 'Nn@0410') { goToView('view-admin'); renderH(); } else alert("Sai!"); };
         window.toggleAdmin = () => { const act = document.querySelector('.view-section.active').id; if(act.startsWith('view-admin')) goToView('view-search'); else goToView('view-login'); };
         function goToView(id) { document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active')); document.getElementById(id).classList.add('active'); }
         
-        function renderH() {
-            const list = document.getElementById('hist-list');
-            list.innerHTML = hist.length ? hist.map(h => `
-                <div class="p-4 flex justify-between items-center text-[11px] hover:bg-slate-50 transition-colors">
+        function renderH() { 
+            document.getElementById('hist-list').innerHTML = hist.map(h => `
+                <div class="p-3 flex justify-between items-center text-[9px] hover:bg-slate-50 transition-all">
                     <div class="text-left">
                         <p class="font-black uppercase text-slate-800 tracking-tighter">${h.name}</p>
-                        <p class="text-slate-400 font-bold">${h.dept}</p>
+                        <p class="text-slate-400 font-bold italic">${h.branchUsed}</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-orange-500 font-black italic">${h.type}</p>
-                        <p class="text-slate-300 text-[9px] not-italic font-medium">${h.time}</p>
+                        <p class="text-orange-500 font-black uppercase">${h.type}</p>
+                        <p class="text-slate-300 text-[7px] font-medium">${h.time}</p>
                     </div>
                 </div>
-            `).join('') : '<p class="p-10 text-slate-300 text-[10px] uppercase font-black text-center">Chưa có dữ liệu hôm nay</p>';
+            `).join(''); 
         }
         window.onload = loadData;
     </script>
